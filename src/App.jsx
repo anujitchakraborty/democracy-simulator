@@ -553,7 +553,7 @@ export default function App() {
             </div>
 
             <div style={{ marginTop: 14 }}>
-              <label style={labelStyle()}>Within-expert correlation (rho_SS)</label>
+              <label style={labelStyle()}>Within-expert correlation (rho_EE)</label>
               <input style={inputStyle()} type="number" step="0.01" value={rhoSS} onChange={(e) => setRhoSS(Number(e.target.value))} />
             </div>
 
@@ -573,12 +573,12 @@ export default function App() {
             </div>
 
             <div style={{ marginTop: 14 }}>
-              <label style={labelStyle()}>Within-nonexpert correlation values</label>
+              <label style={labelStyle()}>Within-nonexpert correlation values (rho_NN)</label>
               <input style={inputStyle()} value={rhoNNText} onChange={(e) => setRhoNNText(e.target.value)} />
             </div>
 
             <div style={{ marginTop: 14 }}>
-              <label style={labelStyle()}>Expert-nonexpert correlation values</label>
+              <label style={labelStyle()}>Expert-nonexpert correlation values (rho_EE)</label>
               <input style={inputStyle()} value={rhoSNText} onChange={(e) => setRhoSNText(e.target.value)} />
             </div>
 
