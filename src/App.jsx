@@ -627,7 +627,7 @@ export default function App() {
                 Suggested experiment
               </div>
             
-              <div style={{ fontSize: 14, lineHeight: 1.6, color: "#475569" }}>
+              <div style={{ fontSize: 16, lineHeight: 1.8, color: "#475569" }}>
                 Can non-experts contribute in the wisdom of crowds? To explore this try
                 simulating the case with your favorite values of
                 <span style={{ fontFamily: "Georgia, Times New Roman, serif", color: "#0f172a" }}>
@@ -642,7 +642,7 @@ export default function App() {
                   {" "}ρ<sub>EN</sub> &lt; 0 but ρ<sub>EE</sub>, ρ<sub>NN</sub> &gt; 0
                   </span>).  
               </div>
-               <p style={{ fontSize: 14, lineHeight: 1.6, color: "#475569" }}>
+               <p style={{ fontSize: 16, lineHeight: 1.8, color: "#475569" }}>
                       In the plot below, gain is the increase in the probability of the majority picking the right state when including non-expert opinions (N+E), compared to without. We plot gain as a function of the number of non-experts included.
                     </p>
                     
