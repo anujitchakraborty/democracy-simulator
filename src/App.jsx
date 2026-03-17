@@ -626,7 +626,7 @@ export default function App() {
             {results
               ? results.panels.map((panel, panelIndex) => (
                   <div key={panel.rhoNN} style={sectionStyle()}>
-                    <h2 style={{ marginTop: 0 }}>Gain vs. N1 for rho_NN = {panel.rhoNN}</h2>
+                    <h2 style={{ marginTop: 0 }}>Gain vs. N<sub>1</sub> (Number of non-experts), plotted at ρ<sub>NN</sub> = = {panel.rhoNN}</h2>
                     <p style={{ color: "#475569" }}>
                       Gain is the difference between full-sample majority accuracy and expert-only majority accuracy.
                     </p>
