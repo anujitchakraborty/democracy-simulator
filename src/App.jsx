@@ -663,28 +663,8 @@ export default function App() {
                     <p style={{ color: "#475569" }}>
                       Gain is the difference between full-sample (E+NE) majority accuracy and expert-only (E) majority accuracy.
                     </p>
-                    <div style={{
-                        marginTop: 12,
-                        padding: "12px 14px",
-                        background: "#f8fafc",
-                        border: "1px solid #e2e8f0",
-                        borderRadius: 10,
-                        fontSize: 14,
-                        lineHeight: 1.5
-                      }}>
-                        <b>Try this:</b> Can coin tosses work as non-experts?  
-                        To explore this possibility, simulate the following configuration:
-                        <span style={{ fontFamily: "serif", marginLeft: 6 }}>
-                          μ<sub>E</sub> = 0.6,&nbsp;
-                          μ<sub>N</sub> = 0.5,&nbsp;
-                          ρ<sub>EE</sub> = 0.8,&nbsp;
-                          ρ<sub>NN</sub> = 0,&nbsp;
-                          ρ<sub>EN</sub> = 0
-                        </span>.
-                        In this case non-experts behave like independent coin flips, yet the
-                        aggregation of many such signals can still improve the accuracy of the
-                        majority decision.
-                      </div>
+                    
+                    
                     <div style={{ width: "100%", height: 360 }}>
                       <ResponsiveContainer width="100%" height="100%">
                         <LineChart data={panel.rows} margin={{ top: 10, right: 24, left: 8, bottom: 8 }}>
