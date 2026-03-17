@@ -476,7 +476,7 @@ export default function App() {
         
         <div style={{ display: "grid", gridTemplateColumns: "minmax(300px, 360px) 1fr", gap: 24 }}>
           <div style={sectionStyle()}>
-            <h2 style={{ marginTop: 0 }}>Parameters</h2>
+            <h2 style={{ marginTop: 0 }}>Pick Parameters</h2>
 
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 14 }}>
               <div>
