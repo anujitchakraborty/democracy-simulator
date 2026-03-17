@@ -589,14 +589,7 @@ export default function App() {
                     
             </div>
 
-            <div
-  style={{
-    ...sectionStyle(),
-    background: "#ffffff",
-    borderColor: "#e2e8f0",
-    padding: "16px 18px"
-  }}
->
+            
 
 
   <details
