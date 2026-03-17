@@ -643,7 +643,7 @@ export default function App() {
                   </span>).  
               </div>
                <p style={{ fontSize: 14, lineHeight: 1.6, color: "#475569" }}>
-                      Gain is the increase in the probability of the majority picking the right state when including non-expert opinions (N+E), compared to without. We plot gain as a function of the number of non-experts included.
+                      In the plot below, gain is the increase in the probability of the majority picking the right state when including non-expert opinions (N+E), compared to without. We plot gain as a function of the number of non-experts included.
                     </p>
                     
             </div>
