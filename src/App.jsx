@@ -408,9 +408,7 @@ export default function App() {
   const [error, setError] = useState("");
   const [running, setRunning] = useState(false);
 
-  useEffect(() => {
-    setTests(runSelfTests());
-  }, []);
+
 
   const parsedInputs = useMemo(() => {
     return {
