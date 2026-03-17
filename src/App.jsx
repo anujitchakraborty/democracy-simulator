@@ -642,6 +642,10 @@ export default function App() {
                   {" "}ρ<sub>EN</sub> &lt; 0 but ρ<sub>EE</sub>, ρ<sub>NN</sub> &gt; 0
                   </span>).  
               </div>
+               <p style={{ color: "#475569" }}>
+                      Gain is the increase in the probability of the majority picking the right state when including non-expert opinions (N+E), compared to without. We plot gain as a function of the number of non-experts included.
+                    </p>
+                    
             </div>
 
             
@@ -665,10 +669,7 @@ export default function App() {
               ? results.panels.map((panel, panelIndex) => (
                   <div key={panel.rhoNN} style={sectionStyle()}>
                     <h2 style={{ marginTop: 0 }}>Gain vs. N (Number of Non-experts), plotted at ρ<sub>NN</sub> = {panel.rhoNN}</h2>
-                    <p style={{ color: "#475569" }}>
-                      Gain is the increase in the probability of the majority picking the right state when including non-expert opinions (N+E), compared to without. We plot gain as a function of the number of non-experts included.
-                    </p>
-                    
+                   
                     
                     <div style={{ width: "100%", height: 360 }}>
                       <ResponsiveContainer width="100%" height="100%">
