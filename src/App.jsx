@@ -578,7 +578,7 @@ export default function App() {
             </div>
 
             <div style={{ marginTop: 14 }}>
-              <label style={labelStyle()}>Expert-nonexpert correlation values (rho_EE)</label>
+              <label style={labelStyle()}>Expert-nonexpert correlation values (rho_EN)</label>
               <input style={inputStyle()} value={rhoSNText} onChange={(e) => setRhoSNText(e.target.value)} />
             </div>
 
