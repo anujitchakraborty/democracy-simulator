@@ -469,7 +469,7 @@ export default function App() {
             row[`rhoSN_${r}`] = sim.gain;
 
             if (sim.adjusted && sim.shrinkage > 0) {
-              warnings.push(`rho_NN=${rhoNN}, rho_SN=${rhoSN}, N1=${N1}: repaired infeasible correlation matrix.`);
+              warnings.push(`rho_NN=${rhoNN}, rho_EN=${rhoSN}, N1=${N1}: repaired infeasible correlation matrix.`);
             }
           }
 
@@ -644,7 +644,7 @@ export default function App() {
                               key={`${panelIndex}-${rhoSN}`}
                               type="monotone"
                               dataKey={`rhoSN_${r}`}
-                              name={`ρ<sub>EN</sub> = ${rhoSN}`}
+                              name={`ρ_EN = ${rhoSN}`}
                               stroke={palette[r % palette.length]}
                               strokeWidth={2}
                               dot={{ r: 2 }}
