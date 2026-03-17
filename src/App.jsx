@@ -639,7 +639,7 @@ export default function App() {
                   </span>, 
                 non-experts can contribute by increasing the sample size, and by potentially decorrelating the assessments (say when 
                 <span style={{ fontFamily: "Georgia, Times New Roman, serif", color: "#0f172a" }}>
-                  {" "}ρ<sub>EN</sub> &lt; ρ<sub>EE</sub>, ρ<sub>NN</sub>
+                  {" "}ρ<sub>EN</sub> &lt; 0 but ρ<sub>EE</sub>, ρ<sub>NN</sub> &gt; 0
                   </span>).  
               </div>
             </div>
