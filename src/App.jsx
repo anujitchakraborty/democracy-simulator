@@ -628,14 +628,12 @@ export default function App() {
               </div>
             
               <div style={{ fontSize: 14, lineHeight: 1.6, color: "#475569" }}>
-                Can coin tosses, working as non-experts, improve the wisdom of crowds? To explore this seemingly bizzare possibility, try
-                simulating the case with
+                Can non-experts contribute in the wisdom of crowds? To explore this try
+                simulating the case with your favorite values of
                 <span style={{ fontFamily: "Georgia, Times New Roman, serif", color: "#0f172a" }}>
-                  {" "}μ<sub>E</sub> = 0.6, μ<sub>N</sub> = 0.5, E=7, ρ<sub>EE</sub> = 0.8, ρ<sub>NN</sub> = 0, ρ<sub>EN</sub> = 0
+                  {" "}μ<sub>E</sub>, μ<sub>N</sub>, E, ρ<sub>EE</sub>, ρ<sub>NN</sub>, ρ<sub>EN</sub>
                 </span>.
-                In this case, non-experts behave like independent coin flips, yet
-                aggregating the right number of such signals can still marginally improve the accuracy of the
-                majority decision, by decorrelating the assessments.
+                Generally speaking, even if μ<sub>E</sub> > μ<sub>N</sub>, non-experts can contribute by increasing the sample size, and by potentially decorrelating the assessments (say when ρ<sub>EN</sub> < ρ<sub>EE</sub>, ρ<sub>NN</sub>, ).  
               </div>
             </div>
 
