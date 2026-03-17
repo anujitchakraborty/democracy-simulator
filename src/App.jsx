@@ -666,7 +666,7 @@ export default function App() {
                   <div key={panel.rhoNN} style={sectionStyle()}>
                     <h2 style={{ marginTop: 0 }}>Gain vs. N (Number of Non-experts), plotted at ρ<sub>NN</sub> = {panel.rhoNN}</h2>
                     <p style={{ color: "#475569" }}>
-                      Gain is the difference between full-sample (E+NE) majority accuracy and expert-only (E) majority accuracy.
+                      Gain is the increase in the probability of the majority picking the right state when including non-expert opinions (N+E), compared to without. We plot gain as a function of the number of non-experts included.
                     </p>
                     
                     
