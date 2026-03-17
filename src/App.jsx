@@ -467,7 +467,7 @@ export default function App() {
     <div style={{ minHeight: "100vh", background: "#f8fafc", padding: 24, fontFamily: "Arial, sans-serif", color: "#0f172a" }}>
       <div style={{ maxWidth: 1200, margin: "0 auto", display: "grid", gap: 24 }}>
         <div>
-          <h1 style={{ margin: 0, fontSize: 32 }}>Democracy Gain Simulator</h1>
+          <h1 style={{ margin: 0, fontSize: 32 }}>Wisdom of the Crowds Simulator</h1>
           <p style={{ color: "#475569", maxWidth: 800 }}>
             Interactive Monte Carlo app for comparing the gain from adding non-experts (N) under correlated evaluations.
           </p>
