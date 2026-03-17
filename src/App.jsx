@@ -642,7 +642,8 @@ export default function App() {
                         <b>Try this:</b> Can coin tosses work as non-experts?  
                         To explore this possibility, simulate the following configuration:
                         <span style={{ fontFamily: "serif", marginLeft: 6 }}>
-                          μ<sub>0</sub> = 0.6,&nbsp;
+                          μ<sub>E</sub> = 0.6,&nbsp;
+                          μ<sub>N</sub> = 0.5,&nbsp;
                           ρ<sub>EE</sub> = 0.8,&nbsp;
                           ρ<sub>NN</sub> = 0,&nbsp;
                           ρ<sub>EN</sub> = 0
