@@ -631,6 +631,22 @@ export default function App() {
     and binary responses are obtained by thresholding these latent variables.
   </div>
 
+    <div style={{ fontSize: 15, lineHeight: 1.7, color: "#475569", marginTop: 10 }}>
+  To simulate the latent Gaussian variables, the app first constructs a block
+  correlation matrix using the chosen values of
+  <span style={{ fontFamily: "Georgia, Times New Roman, serif", color: "#0f172a" }}>
+    {" "}ρ<sub>EE</sub>, ρ<sub>NN</sub>, ρ<sub>EN</sub>
+  </span>.
+  A Cholesky decomposition of this matrix is then used to generate correlated
+  normal draws from independent standard normal shocks. Because some user-chosen
+  parameter combinations do not produce a valid positive semidefinite correlation
+  matrix, the app applies a numerical repair step before the decomposition:
+  it symmetrizes the matrix, projects it to a nearby positive semidefinite
+  matrix, normalizes it back to a correlation matrix, and, if needed, shrinks
+  it slightly toward the identity matrix. This ensures that the simulation can
+  proceed even when the requested latent correlation structure is infeasible.
+</div>
+
   <div style={{ fontSize: 15, lineHeight: 1.7, color: "#475569", marginTop: 10 }}>
     Each point in the graph represents the average gain
     computed over the specified number of Monte Carlo simulations for a fixed parameter
