@@ -642,7 +642,7 @@ export default function App() {
                   {" "}ρ<sub>EN</sub> &lt; 0 but ρ<sub>EE</sub>, ρ<sub>NN</sub> &gt; 0
                   </span>).  
               </div>
-               <p style={{ color: "#475569" }}>
+               <p style={{ fontSize: 14, lineHeight: 1.6, color: "#475569" }}>
                       Gain is the increase in the probability of the majority picking the right state when including non-expert opinions (N+E), compared to without. We plot gain as a function of the number of non-experts included.
                     </p>
                     
