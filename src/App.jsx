@@ -636,7 +636,7 @@ export default function App() {
     computed over the specified number of Monte Carlo simulations for a fixed parameter
     vector
     <span style={{ fontFamily: "Georgia, Times New Roman, serif", color: "#0f172a" }}>
-      {" "}(ρ<sub>EE</sub>, ρ<sub>NN</sub>, ρ<sub>EN</sub>, N<sub>1</sub>)
+      {" "}(ρ<sub>EE</sub>, ρ<sub>NN</sub>, ρ<sub>EN</sub>, E
     </span>.
   </div>
 </details>
