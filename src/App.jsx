@@ -10,7 +10,7 @@ import {
   ResponsiveContainer,
   ReferenceLine,
 } from "recharts";
-import { Play, RotateCcw, AlertTriangle, CheckCircle2 } from "lucide-react";
+import { Play, RotateCcw, AlertTriangle } from "lucide-react";
 
 function parseNumberList(value) {
   if (typeof value !== "string") return [];
