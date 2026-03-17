@@ -407,7 +407,6 @@ export default function App() {
   const [results, setResults] = useState(null);
   const [error, setError] = useState("");
   const [running, setRunning] = useState(false);
-  const [tests, setTests] = useState([]);
 
   useEffect(() => {
     setTests(runSelfTests());
