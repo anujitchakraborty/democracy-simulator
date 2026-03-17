@@ -597,38 +597,6 @@ export default function App() {
     padding: "16px 18px"
   }}
 >
-  <div
-    style={{
-      fontSize: 18,
-      fontWeight: 600,
-      marginBottom: 10,
-      color: "#0f172a"
-    }}
-  >
-    Simulation design
-  </div>
-
-  <div style={{ fontSize: 15, lineHeight: 1.7, color: "#475569" }}>
-    The figure plots the simulated accuracy gain
-    <span style={{ fontFamily: "Georgia, Times New Roman, serif", color: "#0f172a" }}>
-      {" "}P<sub>n</sub> − P<sub>0</sub>
-    </span>
-    as a function of the number of non-experts
-    <span style={{ fontFamily: "Georgia, Times New Roman, serif", color: "#0f172a" }}>
-      {" "}N<sub>1</sub>
-    </span>.
-    Here
-    <span style={{ fontFamily: "Georgia, Times New Roman, serif", color: "#0f172a" }}>
-      {" "}P<sub>0</sub>
-    </span>
-    denotes the probability that the majority of experts correctly identifies the state,
-    while
-    <span style={{ fontFamily: "Georgia, Times New Roman, serif", color: "#0f172a" }}>
-      {" "}P<sub>n</sub>
-    </span>
-    denotes the probability that the majority of the full sample (experts and non-experts)
-    does so.
-  </div>
 
 
    <div          style={{
