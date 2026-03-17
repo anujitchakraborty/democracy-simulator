@@ -399,7 +399,7 @@ export default function App() {
   const [N1Start, setN1Start] = useState(2);
   const [N1End, setN1End] = useState(20);
   const [N1Step, setN1Step] = useState(2);
-  const [trials, setTrials] = useState(4000);
+  const [trials, setTrials] = useState(10000);
   const [rhoSS, setRhoSS] = useState(0.9);
   const [rhoNNText, setRhoNNText] = useState("0.1, 0.8");
   const [rhoSNText, setRhoSNText] = useState("-0.9, -0.7, -0.5, -0.3, 0, 0.5");
@@ -494,7 +494,7 @@ export default function App() {
     setN1Start(2);
     setN1End(20);
     setN1Step(2);
-    setTrials(4000);
+    setTrials(10000);
     setRhoSS(0.9);
     setRhoNNText("0.1, 0.8");
     setRhoSNText("-0.9, -0.7, -0.5, -0.3, 0, 0.5");
