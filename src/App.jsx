@@ -338,8 +338,15 @@ function simulateMajorityProbability({ N0, N1, mu0, mu1, rhoSS, rhoNN, rhoSN, tr
   return { P0, Pn, gain: Pn - P0, adjusted, shrinkage };
 }
 
-const palette = ["#111827", "#374151", "#6b7280", "#9ca3af", "#4b5563", "#1f2937", "#7c3aed", "#2563eb"];
-
+const palette = [
+  "#1f77b4",  // blue
+  "#d62728",  // red
+  "#2ca02c",  // green
+  "#9467bd",  // purple
+  "#ff7f0e",  // orange
+  "#17becf",  // teal
+  "#8c564b",  // brown
+];
 function sectionStyle() {
   return {
     background: "white",
