@@ -1,11 +1,15 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { Badge } from "@/components/ui/badge";
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, ReferenceLine } from "recharts";
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+  ResponsiveContainer,
+  ReferenceLine,
+} from "recharts";
 import { Play, RotateCcw, AlertTriangle, CheckCircle2 } from "lucide-react";
 
 function parseNumberList(value) {
@@ -148,9 +152,7 @@ function symmetrize(A) {
   const n = A.length;
   const out = Array.from({ length: n }, () => Array(n).fill(0));
   for (let i = 0; i < n; i++) {
-    for (let j = 0; j < n; j++) {
-      out[i][j] = 0.5 * (A[i][j] + A[j][i]);
-    }
+    for (let j = 0; j < n; j++) out[i][j] = 0.5 * (A[i][j] + A[j][i]);
   }
   return out;
 }
@@ -232,9 +234,7 @@ function normalizeToCorrelation(A) {
   const out = cloneMatrix(A);
   const d = Array.from({ length: n }, (_, i) => Math.sqrt(Math.max(out[i][i], 1e-12)));
   for (let i = 0; i < n; i++) {
-    for (let j = 0; j < n; j++) {
-      out[i][j] = out[i][j] / (d[i] * d[j]);
-    }
+    for (let j = 0; j < n; j++) out[i][j] = out[i][j] / (d[i] * d[j]);
   }
   for (let i = 0; i < n; i++) out[i][i] = 1;
   return symmetrize(out);
@@ -244,9 +244,7 @@ function shrinkTowardIdentity(A, lambda) {
   const n = A.length;
   const out = Array.from({ length: n }, () => Array(n).fill(0));
   for (let i = 0; i < n; i++) {
-    for (let j = 0; j < n; j++) {
-      out[i][j] = (1 - lambda) * A[i][j] + lambda * (i === j ? 1 : 0);
-    }
+    for (let j = 0; j < n; j++) out[i][j] = (1 - lambda) * A[i][j] + lambda * (i === j ? 1 : 0);
   }
   return out;
 }
@@ -312,61 +310,89 @@ function simulateMajorityProbability({ N0, N1, mu0, mu1, rhoSS, rhoNN, rhoSN, tr
 
   const sigma0 = makeConstantBlockCorrelation(N0, 0, rhoSS, 0, 0);
   const { L: L0 } = makeSPD(sigma0);
+
   let correct0 = 0;
   for (let t = 0; t < trials; t++) {
     const z = sampleMVN(L0, rand);
     let votes = 0;
-    for (let i = 0; i < N0; i++) {
-      if (normCdf(z[i]) < mu0) votes += 1;
-    }
+    for (let i = 0; i < N0; i++) if (normCdf(z[i]) < mu0) votes += 1;
     const pred = votes / N0 > 0.5 ? 1 : 0;
     if (pred === 1) correct0 += 1;
   }
   const P0 = correct0 / trials;
 
   const sigma = makeConstantBlockCorrelation(N0, N1, rhoSS, rhoNN, rhoSN);
-  const { L, adjusted, jitter } = makeSPD(sigma);
+  const { L, adjusted, shrinkage } = makeSPD(sigma);
+
   let correctN = 0;
   for (let t = 0; t < trials; t++) {
     const z = sampleMVN(L, rand);
     let votes = 0;
-    for (let i = 0; i < N0; i++) {
-      if (normCdf(z[i]) < mu0) votes += 1;
-    }
-    for (let i = 0; i < N1; i++) {
-      if (normCdf(z[N0 + i]) < mu1) votes += 1;
-    }
+    for (let i = 0; i < N0; i++) if (normCdf(z[i]) < mu0) votes += 1;
+    for (let i = 0; i < N1; i++) if (normCdf(z[N0 + i]) < mu1) votes += 1;
     const pred = votes / (N0 + N1) > 0.5 ? 1 : 0;
     if (pred === 1) correctN += 1;
   }
   const Pn = correctN / trials;
 
-  return { P0, Pn, gain: Pn - P0, adjusted, jitter };
+  return { P0, Pn, gain: Pn - P0, adjusted, shrinkage };
 }
 
-const linePalette = [
-  "#111827",
-  "#374151",
-  "#6b7280",
-  "#9ca3af",
-  "#4b5563",
-  "#1f2937",
-  "#7c3aed",
-  "#2563eb",
-];
+const palette = ["#111827", "#374151", "#6b7280", "#9ca3af", "#4b5563", "#1f2937", "#7c3aed", "#2563eb"];
 
-function niceTickFormatter(x) {
-  return typeof x === "number" ? x.toFixed(2) : x;
+function sectionStyle() {
+  return {
+    background: "white",
+    border: "1px solid #e2e8f0",
+    borderRadius: 16,
+    padding: 20,
+    boxShadow: "0 1px 3px rgba(0,0,0,0.06)",
+  };
 }
 
-export default function DemocracyGainSimulatorApp() {
+function labelStyle() {
+  return {
+    display: "block",
+    fontSize: 13,
+    fontWeight: 600,
+    marginBottom: 6,
+  };
+}
+
+function inputStyle() {
+  return {
+    width: "100%",
+    padding: "10px 12px",
+    border: "1px solid #cbd5e1",
+    borderRadius: 10,
+    fontSize: 14,
+    boxSizing: "border-box",
+  };
+}
+
+function buttonStyle(primary = true) {
+  return {
+    display: "inline-flex",
+    alignItems: "center",
+    gap: 8,
+    padding: "10px 14px",
+    borderRadius: 12,
+    border: primary ? "none" : "1px solid #cbd5e1",
+    background: primary ? "#0f172a" : "white",
+    color: primary ? "white" : "#0f172a",
+    cursor: "pointer",
+    fontWeight: 600,
+  };
+}
+
+export default function App() {
   const [mu0, setMu0] = useState(0.8);
   const [mu1, setMu1] = useState(0.6);
   const [N0, setN0] = useState(5);
   const [N1Start, setN1Start] = useState(2);
   const [N1End, setN1End] = useState(20);
   const [N1Step, setN1Step] = useState(2);
-  const [trials, setTrials] = useState(8000);
+  const [trials, setTrials] = useState(4000);
   const [rhoSS, setRhoSS] = useState(0.9);
   const [rhoNNText, setRhoNNText] = useState("0.1, 0.8");
   const [rhoSNText, setRhoSNText] = useState("-0.9, -0.7, -0.5, -0.3, 0, 0.5");
@@ -381,21 +407,20 @@ export default function DemocracyGainSimulatorApp() {
   }, []);
 
   const parsedInputs = useMemo(() => {
-    const rhoNNVals = parseNumberList(rhoNNText);
-    const rhoSNVals = parseNumberList(rhoSNText);
-    const N1Vals = buildRange(Number(N1Start), Number(N1End), Number(N1Step));
-    return { rhoNNVals, rhoSNVals, N1Vals };
+    return {
+      rhoNNVals: parseNumberList(rhoNNText),
+      rhoSNVals: parseNumberList(rhoSNText),
+      N1Vals: buildRange(Number(N1Start), Number(N1End), Number(N1Step)),
+    };
   }, [rhoNNText, rhoSNText, N1Start, N1End, N1Step]);
 
-  const runSimulation = async () => {
+  async function runSimulation() {
     setError("");
     setRunning(true);
     setResults(null);
 
     try {
-      const rhoNNVals = parsedInputs.rhoNNVals;
-      const rhoSNVals = parsedInputs.rhoSNVals;
-      const N1Vals = parsedInputs.N1Vals;
+      const { rhoNNVals, rhoSNVals, N1Vals } = parsedInputs;
 
       if (!(mu0 > 0 && mu0 < 1 && mu1 > 0 && mu1 < 1)) {
         throw new Error("Accuracies must lie strictly between 0 and 1.");
@@ -411,16 +436,20 @@ export default function DemocracyGainSimulatorApp() {
 
       const panels = [];
       const warnings = [];
+
       for (let i = 0; i < rhoNNVals.length; i++) {
         const rhoNN = rhoNNVals[i];
-        const panelRows = [];
+        const rows = [];
+
         for (let idx = 0; idx < N1Vals.length; idx++) {
-          const row = { N1: N1Vals[idx] };
+          const N1 = N1Vals[idx];
+          const row = { N1 };
+
           for (let r = 0; r < rhoSNVals.length; r++) {
             const rhoSN = rhoSNVals[r];
             const sim = simulateMajorityProbability({
               N0: Number(N0),
-              N1: Number(N1Vals[idx]),
+              N1: Number(N1),
               mu0: Number(mu0),
               mu1: Number(mu1),
               rhoSS: Number(rhoSS),
@@ -429,247 +458,213 @@ export default function DemocracyGainSimulatorApp() {
               trials: Number(trials),
               seed: Number(seed) + 10000 * i + 100 * idx + r,
             });
+
             row[`rhoSN_${r}`] = sim.gain;
-            if (sim.adjusted) {
-              warnings.push(
-                `Adjusted matrix for rho_NN=${rhoNN}, rho_SN=${rhoSN}, N1=${N1Vals[idx]} (diag jitter ${sim.jitter.toExponential(1)}).`
-              );
+
+            if (sim.adjusted && sim.shrinkage > 0) {
+              warnings.push(`rho_NN=${rhoNN}, rho_SN=${rhoSN}, N1=${N1}: repaired infeasible correlation matrix.`);
             }
           }
-          panelRows.push(row);
+
+          rows.push(row);
         }
-        panels.push({ rhoNN, rows: panelRows });
+
+        panels.push({ rhoNN, rows });
       }
 
-      setResults({ panels, rhoSNVals, warnings, config: { mu0, mu1, N0, trials, rhoSS } });
+      setResults({ panels, rhoSNVals: parsedInputs.rhoSNVals, warnings });
     } catch (e) {
       setError(e.message || "Simulation failed.");
     } finally {
       setRunning(false);
     }
-  };
+  }
 
-  const resetDefaults = () => {
+  function resetDefaults() {
     setMu0(0.8);
     setMu1(0.6);
     setN0(5);
     setN1Start(2);
     setN1End(20);
     setN1Step(2);
-    setTrials(8000);
+    setTrials(4000);
     setRhoSS(0.9);
     setRhoNNText("0.1, 0.8");
     setRhoSNText("-0.9, -0.7, -0.5, -0.3, 0, 0.5");
     setSeed(42);
     setResults(null);
     setError("");
-  };
+  }
 
   const testsPassed = tests.length > 0 && tests.every((t) => t.passed);
 
   return (
-    <div className="min-h-screen bg-slate-50 p-6">
-      <div className="mx-auto max-w-7xl space-y-6">
-        <div className="space-y-2">
-          <h1 className="text-3xl font-semibold tracking-tight">Democracy Gain Simulator</h1>
-          <p className="max-w-3xl text-sm text-slate-600">
+    <div style={{ minHeight: "100vh", background: "#f8fafc", padding: 24, fontFamily: "Arial, sans-serif", color: "#0f172a" }}>
+      <div style={{ maxWidth: 1200, margin: "0 auto", display: "grid", gap: 24 }}>
+        <div>
+          <h1 style={{ margin: 0, fontSize: 32 }}>Democracy Gain Simulator</h1>
+          <p style={{ color: "#475569", maxWidth: 800 }}>
             Interactive Monte Carlo app for comparing the gain from adding non-experts under correlated evaluations.
-            The app replicates the structure of your MATLAB script using a Gaussian copula with block correlation.
           </p>
         </div>
 
-        <Card className="rounded-2xl shadow-sm">
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <CheckCircle2 className="h-5 w-5" />
-              Runtime checks
-            </CardTitle>
-            <CardDescription>Small self-tests for parsing and grid construction.</CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-2 text-sm">
-            <div className={testsPassed ? "text-emerald-700" : "text-amber-700"}>
-              {testsPassed ? "All checks passed." : "Some checks failed."}
-            </div>
+        <div style={sectionStyle()}>
+          <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 12 }}>
+            <CheckCircle2 size={18} />
+            <strong>Runtime checks</strong>
+          </div>
+          <div style={{ color: testsPassed ? "#047857" : "#b45309", marginBottom: 10 }}>
+            {testsPassed ? "All checks passed." : "Some checks failed."}
+          </div>
+          <div style={{ display: "grid", gap: 8 }}>
             {tests.map((test) => (
-              <div key={test.name} className="flex items-center justify-between rounded-xl border px-3 py-2">
+              <div key={test.name} style={{ display: "flex", justifyContent: "space-between", border: "1px solid #e2e8f0", borderRadius: 12, padding: "10px 12px" }}>
                 <span>{test.name}</span>
-                <Badge variant={test.passed ? "secondary" : "destructive"}>{test.passed ? "Pass" : "Fail"}</Badge>
+                <strong>{test.passed ? "Pass" : "Fail"}</strong>
               </div>
             ))}
-          </CardContent>
-        </Card>
+          </div>
+        </div>
 
-        <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
-          <Card className="rounded-2xl shadow-sm lg:col-span-1">
-            <CardHeader>
-              <CardTitle>Parameters</CardTitle>
-              <CardDescription>Adjust inputs, then run the simulation.</CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-5">
-              <div className="grid grid-cols-2 gap-4">
-                <div className="space-y-2">
-                  <Label htmlFor="mu0">Expert accuracy (mu0)</Label>
-                  <Input id="mu0" type="number" step="0.01" value={mu0} onChange={(e) => setMu0(Number(e.target.value))} />
+        <div style={{ display: "grid", gridTemplateColumns: "minmax(300px, 360px) 1fr", gap: 24 }}>
+          <div style={sectionStyle()}>
+            <h2 style={{ marginTop: 0 }}>Parameters</h2>
+
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 14 }}>
+              <div>
+                <label style={labelStyle()}>Expert accuracy (mu0)</label>
+                <input style={inputStyle()} type="number" step="0.01" value={mu0} onChange={(e) => setMu0(Number(e.target.value))} />
+              </div>
+              <div>
+                <label style={labelStyle()}>Non-expert accuracy (mu1)</label>
+                <input style={inputStyle()} type="number" step="0.01" value={mu1} onChange={(e) => setMu1(Number(e.target.value))} />
+              </div>
+            </div>
+
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 14, marginTop: 14 }}>
+              <div>
+                <label style={labelStyle()}>Experts (N0)</label>
+                <input style={inputStyle()} type="number" step="1" value={N0} onChange={(e) => setN0(Number(e.target.value))} />
+              </div>
+              <div>
+                <label style={labelStyle()}>Trials</label>
+                <input style={inputStyle()} type="number" step="100" value={trials} onChange={(e) => setTrials(Number(e.target.value))} />
+              </div>
+            </div>
+
+            <div style={{ marginTop: 14 }}>
+              <label style={labelStyle()}>Within-expert correlation (rho_SS)</label>
+              <input style={inputStyle()} type="number" step="0.01" value={rhoSS} onChange={(e) => setRhoSS(Number(e.target.value))} />
+            </div>
+
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 14, marginTop: 14 }}>
+              <div>
+                <label style={labelStyle()}>N1 start</label>
+                <input style={inputStyle()} type="number" step="1" value={N1Start} onChange={(e) => setN1Start(Number(e.target.value))} />
+              </div>
+              <div>
+                <label style={labelStyle()}>N1 end</label>
+                <input style={inputStyle()} type="number" step="1" value={N1End} onChange={(e) => setN1End(Number(e.target.value))} />
+              </div>
+              <div>
+                <label style={labelStyle()}>N1 step</label>
+                <input style={inputStyle()} type="number" step="1" value={N1Step} onChange={(e) => setN1Step(Number(e.target.value))} />
+              </div>
+            </div>
+
+            <div style={{ marginTop: 14 }}>
+              <label style={labelStyle()}>List of rho_NN values</label>
+              <input style={inputStyle()} value={rhoNNText} onChange={(e) => setRhoNNText(e.target.value)} />
+            </div>
+
+            <div style={{ marginTop: 14 }}>
+              <label style={labelStyle()}>List of rho_SN values</label>
+              <input style={inputStyle()} value={rhoSNText} onChange={(e) => setRhoSNText(e.target.value)} />
+            </div>
+
+            <div style={{ marginTop: 14 }}>
+              <label style={labelStyle()}>Random seed</label>
+              <input style={inputStyle()} type="number" step="1" value={seed} onChange={(e) => setSeed(Number(e.target.value))} />
+            </div>
+
+            <div style={{ display: "flex", gap: 10, marginTop: 18, flexWrap: "wrap" }}>
+              <button style={buttonStyle(true)} onClick={runSimulation} disabled={running}>
+                <Play size={16} />
+                {running ? "Running..." : "Run simulation"}
+              </button>
+              <button style={buttonStyle(false)} onClick={resetDefaults}>
+                <RotateCcw size={16} />
+                Reset
+              </button>
+            </div>
+          </div>
+
+          <div style={{ display: "grid", gap: 24 }}>
+            {error ? (
+              <div style={{ ...sectionStyle(), borderColor: "#fca5a5", background: "#fef2f2", color: "#991b1b" }}>
+                <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 8 }}>
+                  <AlertTriangle size={18} />
+                  <strong>Simulation error</strong>
                 </div>
-                <div className="space-y-2">
-                  <Label htmlFor="mu1">Non-expert accuracy (mu1)</Label>
-                  <Input id="mu1" type="number" step="0.01" value={mu1} onChange={(e) => setMu1(Number(e.target.value))} />
+                <div>{error}</div>
+              </div>
+            ) : null}
+
+            {!results && !error ? (
+              <div style={{ ...sectionStyle(), minHeight: 420, display: "flex", alignItems: "center", justifyContent: "center", color: "#64748b" }}>
+                Run the simulation to generate the comparison plots.
+              </div>
+            ) : null}
+
+            {results
+              ? results.panels.map((panel, panelIndex) => (
+                  <div key={panel.rhoNN} style={sectionStyle()}>
+                    <h2 style={{ marginTop: 0 }}>Gain vs. N1 for rho_NN = {panel.rhoNN}</h2>
+                    <p style={{ color: "#475569" }}>
+                      Gain is the difference between full-sample majority accuracy and expert-only majority accuracy.
+                    </p>
+                    <div style={{ width: "100%", height: 360 }}>
+                      <ResponsiveContainer width="100%" height="100%">
+                        <LineChart data={panel.rows} margin={{ top: 10, right: 24, left: 8, bottom: 8 }}>
+                          <CartesianGrid strokeDasharray="3 3" />
+                          <XAxis dataKey="N1" />
+                          <YAxis />
+                          <Tooltip formatter={(v) => (typeof v === "number" ? v.toFixed(4) : v)} />
+                          <Legend />
+                          <ReferenceLine y={0} stroke="#94a3b8" strokeDasharray="4 4" />
+                          {results.rhoSNVals.map((rhoSN, r) => (
+                            <Line
+                              key={`${panelIndex}-${rhoSN}`}
+                              type="monotone"
+                              dataKey={`rhoSN_${r}`}
+                              name={`rho_SN = ${rhoSN}`}
+                              stroke={palette[r % palette.length]}
+                              strokeWidth={2}
+                              dot={{ r: 2 }}
+                              activeDot={{ r: 4 }}
+                            />
+                          ))}
+                        </LineChart>
+                      </ResponsiveContainer>
+                    </div>
+                  </div>
+                ))
+              : null}
+
+            {results && results.warnings.length > 0 ? (
+              <div style={{ ...sectionStyle(), borderColor: "#fcd34d", background: "#fffbeb" }}>
+                <h3 style={{ marginTop: 0 }}>Matrix adjustments</h3>
+                <p style={{ color: "#78350f" }}>
+                  Some parameter combinations required repairing an infeasible correlation matrix.
+                </p>
+                <div style={{ display: "grid", gap: 6, fontSize: 14 }}>
+                  {results.warnings.slice(0, 12).map((w, i) => (
+                    <div key={i}>• {w}</div>
+                  ))}
+                  {results.warnings.length > 12 ? <div>• ...and {results.warnings.length - 12} more.</div> : null}
                 </div>
               </div>
-
-              <div className="grid grid-cols-2 gap-4">
-                <div className="space-y-2">
-                  <Label htmlFor="n0">Experts (N0)</Label>
-                  <Input id="n0" type="number" step="1" value={N0} onChange={(e) => setN0(Number(e.target.value))} />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="trials">Trials</Label>
-                  <Input id="trials" type="number" step="100" value={trials} onChange={(e) => setTrials(Number(e.target.value))} />
-                </div>
-              </div>
-
-              <div className="space-y-2">
-                <Label htmlFor="rhoSS">Within-expert correlation (rho_SS)</Label>
-                <Input id="rhoSS" type="number" step="0.01" value={rhoSS} onChange={(e) => setRhoSS(Number(e.target.value))} />
-              </div>
-
-              <div className="grid grid-cols-3 gap-4">
-                <div className="space-y-2">
-                  <Label htmlFor="n1start">N1 start</Label>
-                  <Input id="n1start" type="number" step="1" value={N1Start} onChange={(e) => setN1Start(Number(e.target.value))} />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="n1end">N1 end</Label>
-                  <Input id="n1end" type="number" step="1" value={N1End} onChange={(e) => setN1End(Number(e.target.value))} />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="n1step">N1 step</Label>
-                  <Input id="n1step" type="number" step="1" value={N1Step} onChange={(e) => setN1Step(Number(e.target.value))} />
-                </div>
-              </div>
-
-              <div className="space-y-2">
-                <Label htmlFor="rhoNN">List of rho_NN values</Label>
-                <Input id="rhoNN" value={rhoNNText} onChange={(e) => setRhoNNText(e.target.value)} />
-              </div>
-
-              <div className="space-y-2">
-                <Label htmlFor="rhoSN">List of rho_SN values</Label>
-                <Input id="rhoSN" value={rhoSNText} onChange={(e) => setRhoSNText(e.target.value)} />
-              </div>
-
-              <div className="space-y-2">
-                <Label htmlFor="seed">Random seed</Label>
-                <Input id="seed" type="number" step="1" value={seed} onChange={(e) => setSeed(Number(e.target.value))} />
-              </div>
-
-              <div className="flex flex-wrap gap-3 pt-2">
-                <Button className="rounded-2xl" onClick={runSimulation} disabled={running}>
-                  <Play className="mr-2 h-4 w-4" />
-                  {running ? "Running..." : "Run simulation"}
-                </Button>
-                <Button variant="outline" className="rounded-2xl" onClick={resetDefaults}>
-                  <RotateCcw className="mr-2 h-4 w-4" />
-                  Reset
-                </Button>
-              </div>
-
-              <div className="flex flex-wrap gap-2 pt-2 text-xs text-slate-500">
-                <Badge variant="secondary">Gaussian copula</Badge>
-                <Badge variant="secondary">Majority rule</Badge>
-                <Badge variant="secondary">Block correlation matrix</Badge>
-              </div>
-            </CardContent>
-          </Card>
-
-          <div className="space-y-6 lg:col-span-2">
-            {error && (
-              <Alert className="rounded-2xl border-red-300 bg-red-50 text-red-900">
-                <AlertTriangle className="h-4 w-4" />
-                <AlertTitle>Simulation error</AlertTitle>
-                <AlertDescription>{error}</AlertDescription>
-              </Alert>
-            )}
-
-            {!results && !error && (
-              <Card className="rounded-2xl shadow-sm">
-                <CardContent className="flex min-h-[420px] items-center justify-center p-8 text-center text-slate-500">
-                  Run the simulation to generate the comparison plots.
-                </CardContent>
-              </Card>
-            )}
-
-            {results && (
-              <>
-                <Card className="rounded-2xl shadow-sm">
-                  <CardHeader>
-                    <CardTitle>Summary</CardTitle>
-                    <CardDescription>
-                      mu0 = {results.config.mu0}, mu1 = {results.config.mu1}, N0 = {results.config.N0}, trials = {results.config.trials}, rho_SS = {results.config.rhoSS}.
-                    </CardDescription>
-                  </CardHeader>
-                  <CardContent className="flex flex-wrap gap-2 text-sm text-slate-600">
-                    <Badge variant="outline">rho_NN: {parsedInputs.rhoNNVals.join(", ")}</Badge>
-                    <Badge variant="outline">rho_SN: {parsedInputs.rhoSNVals.join(", ")}</Badge>
-                    <Badge variant="outline">N1 grid: {parsedInputs.N1Vals.join(", ")}</Badge>
-                  </CardContent>
-                </Card>
-
-                {results.panels.map((panel, panelIndex) => (
-                  <Card key={panel.rhoNN} className="rounded-2xl shadow-sm">
-                    <CardHeader>
-                      <CardTitle>Gain vs. N1 for rho_NN = {panel.rhoNN}</CardTitle>
-                      <CardDescription>
-                        Gain is the difference between full-sample majority accuracy and expert-only majority accuracy.
-                      </CardDescription>
-                    </CardHeader>
-                    <CardContent>
-                      <div className="h-[360px] w-full">
-                        <ResponsiveContainer width="100%" height="100%">
-                          <LineChart data={panel.rows} margin={{ top: 10, right: 24, left: 8, bottom: 8 }}>
-                            <CartesianGrid strokeDasharray="3 3" />
-                            <XAxis dataKey="N1" label={{ value: "N1", position: "insideBottom", offset: -4 }} />
-                            <YAxis tickFormatter={niceTickFormatter} label={{ value: "Gain = Pn - P0", angle: -90, position: "insideLeft" }} />
-                            <Tooltip formatter={(v) => (typeof v === "number" ? v.toFixed(4) : v)} />
-                            <Legend />
-                            <ReferenceLine y={0} stroke="#94a3b8" strokeDasharray="4 4" />
-                            {results.rhoSNVals.map((rhoSN, r) => (
-                              <Line
-                                key={`${panelIndex}-${rhoSN}`}
-                                type="monotone"
-                                dataKey={`rhoSN_${r}`}
-                                name={`rho_SN = ${rhoSN}`}
-                                stroke={linePalette[r % linePalette.length]}
-                                strokeWidth={2}
-                                dot={{ r: 2 }}
-                                activeDot={{ r: 4 }}
-                              />
-                            ))}
-                          </LineChart>
-                        </ResponsiveContainer>
-                      </div>
-                    </CardContent>
-                  </Card>
-                ))}
-
-                {results.warnings.length > 0 && (
-                  <Card className="rounded-2xl border-amber-300 bg-amber-50 shadow-sm">
-                    <CardHeader>
-                      <CardTitle className="text-amber-900">Matrix adjustments</CardTitle>
-                      <CardDescription className="text-amber-800">
-                        Some parameter combinations required a small diagonal adjustment to make the correlation matrix numerically SPD.
-                      </CardDescription>
-                    </CardHeader>
-                    <CardContent className="space-y-2 text-sm text-amber-900">
-                      {results.warnings.slice(0, 12).map((w, i) => (
-                        <div key={i}>• {w}</div>
-                      ))}
-                      {results.warnings.length > 12 && <div>• ...and {results.warnings.length - 12} more.</div>}
-                    </CardContent>
-                  </Card>
-                )}
-              </>
-            )}
+            ) : null}
           </div>
         </div>
       </div>
