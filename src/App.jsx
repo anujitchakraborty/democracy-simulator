@@ -649,10 +649,10 @@ export default function App() {
 
   <div style={{ fontSize: 15, lineHeight: 1.7, color: "#475569", marginTop: 10 }}>
     Each point in the graph represents the average gain
-    computed over the specified number of Monte Carlo simulations for a fixed parameter
+    computed over the specified number of Monte Carlo simulations for the chosen parameter
     vector
     <span style={{ fontFamily: "Georgia, Times New Roman, serif", color: "#0f172a" }}>
-      {" "}(ρ<sub>EE</sub>, ρ<sub>NN</sub>, ρ<sub>EN</sub>, E
+      {" "}(ρ<sub>EE</sub>, ρ<sub>NN</sub>, ρ<sub>EN</sub>, E)
     </span>.
   </div>
 </details>
