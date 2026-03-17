@@ -511,7 +511,7 @@ export default function App() {
         <div>
           <h1 style={{ margin: 0, fontSize: 32 }}>Democracy Gain Simulator</h1>
           <p style={{ color: "#475569", maxWidth: 800 }}>
-            Interactive Monte Carlo app for comparing the gain from adding non-experts under correlated evaluations.
+            Interactive Monte Carlo app for comparing the gain from adding non-experts (N) under correlated evaluations.
           </p>
         </div>
 
@@ -540,22 +540,22 @@ export default function App() {
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 14 }}>
               <div>
                 <label style={labelStyle()}>Expert accuracy (mu0)</label>
-                <input style={inputStyle()} type="number" step="0.01" value={mu0} onChange={(e) => setMu0(Number(e.target.value))} />
+                <input style={inputStyle()} type="number" step="0.01" value={μ<sub>E</sub>} onChange={(e) => setMu0(Number(e.target.value))} />
               </div>
               <div>
                 <label style={labelStyle()}>Non-expert accuracy (mu1)</label>
-                <input style={inputStyle()} type="number" step="0.01" value={mu1} onChange={(e) => setMu1(Number(e.target.value))} />
+                <input style={inputStyle()} type="number" step="0.01" value={μ<sub>N</sub>} onChange={(e) => setMu1(Number(e.target.value))} />
               </div>
             </div>
 
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 14, marginTop: 14 }}>
               <div>
-                <label style={labelStyle()}>Experts (N0)</label>
+                <label style={labelStyle()}>Experts (E)</label>
                 <input style={inputStyle()} type="number" step="1" value={N0} onChange={(e) => setN0(Number(e.target.value))} />
               </div>
               <div>
                 <label style={labelStyle()}>Trials</label>
-                <input style={inputStyle()} type="number" step="100" value={trials} onChange={(e) => setTrials(Number(e.target.value))} />
+                <input style={inputStyle()} type="number" step="1000" value={trials} onChange={(e) => setTrials(Number(e.target.value))} />
               </div>
             </div>
 
@@ -574,7 +574,7 @@ export default function App() {
                 <input style={inputStyle()} type="number" step="1" value={N1End} onChange={(e) => setN1End(Number(e.target.value))} />
               </div>
               <div>
-                <label style={labelStyle()}>N1 step-size</label>
+                <label style={labelStyle()}>E step-size</label>
                 <input style={inputStyle()} type="number" step="1" value={N1Step} onChange={(e) => setN1Step(Number(e.target.value))} />
               </div>
             </div>
@@ -626,9 +626,9 @@ export default function App() {
             {results
               ? results.panels.map((panel, panelIndex) => (
                   <div key={panel.rhoNN} style={sectionStyle()}>
-                    <h2 style={{ marginTop: 0 }}>Gain vs. E (Number of non-experts), plotted at ρ<sub>NN</sub> = = {panel.rhoNN}</h2>
+                    <h2 style={{ marginTop: 0 }}>Gain vs. N (Number of Non-experts), plotted at ρ<sub>NN</sub> = {panel.rhoNN}</h2>
                     <p style={{ color: "#475569" }}>
-                      Gain is the difference between full-sample majority accuracy and expert-only majority accuracy.
+                      Gain is the difference between full-sample (E+NE) majority accuracy and expert-only (E) majority accuracy.
                     </p>
                     <div style={{ width: "100%", height: 360 }}>
                       <ResponsiveContainer width="100%" height="100%">
