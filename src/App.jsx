@@ -566,15 +566,15 @@ export default function App() {
 
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 14, marginTop: 14 }}>
               <div>
-                <label style={labelStyle()}>N1 min</label>
+                <label style={labelStyle()}>Non-experts (N1) min</label>
                 <input style={inputStyle()} type="number" step="1" value={N1Start} onChange={(e) => setN1Start(Number(e.target.value))} />
               </div>
               <div>
-                <label style={labelStyle()}>N1 max</label>
+                <label style={labelStyle()}>Non-experts (N1) max</label>
                 <input style={inputStyle()} type="number" step="1" value={N1End} onChange={(e) => setN1End(Number(e.target.value))} />
               </div>
               <div>
-                <label style={labelStyle()}>N1 step</label>
+                <label style={labelStyle()}>N1 step-size</label>
                 <input style={inputStyle()} type="number" step="1" value={N1Step} onChange={(e) => setN1Step(Number(e.target.value))} />
               </div>
             </div>
