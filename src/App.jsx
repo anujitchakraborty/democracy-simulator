@@ -436,7 +436,7 @@ export default function App() {
         throw new Error("Choose valid sample sizes and at least 100 trials.");
       }
       if (rhoNNVals.length === 0 || rhoSNVals.length === 0) {
-        throw new Error("Enter at least one value for rho_NN and rho_EN.");
+        throw new Error("Enter at least one value for ρ_NN and ρ_EN.");
       }
 
       await new Promise((resolve) => setTimeout(resolve, 20));
@@ -560,17 +560,17 @@ export default function App() {
             </div>
 
             <div style={{ marginTop: 14 }}>
-              <label style={labelStyle()}>Within-expert correlation (rho_EE)</label>
+              <label style={labelStyle()}>Within-expert correlation (ρ<sub>EE</sub>)</label>
               <input style={inputStyle()} type="number" step="0.01" value={rhoSS} onChange={(e) => setRhoSS(Number(e.target.value))} />
             </div>
 
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 14, marginTop: 14 }}>
               <div>
-                <label style={labelStyle()}>Non-experts (N1) min</label>
+                <label style={labelStyle()}>Non-experts (E) min</label>
                 <input style={inputStyle()} type="number" step="1" value={N1Start} onChange={(e) => setN1Start(Number(e.target.value))} />
               </div>
               <div>
-                <label style={labelStyle()}>Non-experts (N1) max</label>
+                <label style={labelStyle()}>Non-experts (E) max</label>
                 <input style={inputStyle()} type="number" step="1" value={N1End} onChange={(e) => setN1End(Number(e.target.value))} />
               </div>
               <div>
@@ -580,12 +580,12 @@ export default function App() {
             </div>
 
             <div style={{ marginTop: 14 }}>
-              <label style={labelStyle()}>Within-nonexpert correlation values (rho_NN)</label>
+              <label style={labelStyle()}>Within-nonexpert correlation values (ρ<sub>NN</sub>)</label>
               <input style={inputStyle()} value={rhoNNText} onChange={(e) => setRhoNNText(e.target.value)} />
             </div>
 
             <div style={{ marginTop: 14 }}>
-              <label style={labelStyle()}>Expert-nonexpert correlation values (rho_EN)</label>
+              <label style={labelStyle()}>Expert-nonexpert correlation values (ρ<sub>EN</sub>)</label>
               <input style={inputStyle()} value={rhoSNText} onChange={(e) => setRhoSNText(e.target.value)} />
             </div>
 
