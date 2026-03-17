@@ -539,12 +539,12 @@ export default function App() {
 
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 14 }}>
               <div>
-                <label style={labelStyle()}>Expert accuracy (mu0)</label>
-                <input style={inputStyle()} type="number" step="0.01" value={μ<sub>E</sub>} onChange={(e) => setMu0(Number(e.target.value))} />
+                <label style={labelStyle()}>Expert accuracy (μ<sub>E</sub>)</label>
+                <input style={inputStyle()} type="number" step="0.01" value={mu0} onChange={(e) => setMu0(Number(e.target.value))} />
               </div>
               <div>
-                <label style={labelStyle()}>Non-expert accuracy (mu1)</label>
-                <input style={inputStyle()} type="number" step="0.01" value={μ<sub>N</sub>} onChange={(e) => setMu1(Number(e.target.value))} />
+                <label style={labelStyle()}>Non-expert accuracy (μ<sub>N</sub>)</label>
+                <input style={inputStyle()} type="number" step="0.01" value={mu1} onChange={(e) => setMu1(Number(e.target.value))} />
               </div>
             </div>
 
