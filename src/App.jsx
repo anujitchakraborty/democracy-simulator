@@ -436,7 +436,7 @@ export default function App() {
         throw new Error("Choose valid sample sizes and at least 100 trials.");
       }
       if (rhoNNVals.length === 0 || rhoSNVals.length === 0) {
-        throw new Error("Enter at least one value for rho_NN and rho_SN.");
+        throw new Error("Enter at least one value for rho_NN and rho_EN.");
       }
 
       await new Promise((resolve) => setTimeout(resolve, 20));
