@@ -644,7 +644,7 @@ export default function App() {
                               key={`${panelIndex}-${rhoSN}`}
                               type="monotone"
                               dataKey={`rhoSN_${r}`}
-                              name={`rho_EN = ${rhoSN}`}
+                              name={`ρ<sub>EN</sub> = ${rhoSN}`}
                               stroke={palette[r % palette.length]}
                               strokeWidth={2}
                               dot={{ r: 2 }}
