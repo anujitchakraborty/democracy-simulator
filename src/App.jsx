@@ -473,24 +473,7 @@ export default function App() {
           </p>
         </div>
 
-        <div style={sectionStyle()}>
-          <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 12 }}>
-            <CheckCircle2 size={18} />
-            <strong>Runtime checks</strong>
-          </div>
-          <div style={{ color: testsPassed ? "#047857" : "#b45309", marginBottom: 10 }}>
-            {testsPassed ? "All checks passed." : "Some checks failed."}
-          </div>
-          <div style={{ display: "grid", gap: 8 }}>
-            {tests.map((test) => (
-              <div key={test.name} style={{ display: "flex", justifyContent: "space-between", border: "1px solid #e2e8f0", borderRadius: 12, padding: "10px 12px" }}>
-                <span>{test.name}</span>
-                <strong>{test.passed ? "Pass" : "Fail"}</strong>
-              </div>
-            ))}
-          </div>
-        </div>
-
+        
         <div style={{ display: "grid", gridTemplateColumns: "minmax(300px, 360px) 1fr", gap: 24 }}>
           <div style={sectionStyle()}>
             <h2 style={{ marginTop: 0 }}>Parameters</h2>
