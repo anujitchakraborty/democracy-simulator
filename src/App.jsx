@@ -633,7 +633,14 @@ export default function App() {
                 <span style={{ fontFamily: "Georgia, Times New Roman, serif", color: "#0f172a" }}>
                   {" "}μ<sub>E</sub>, μ<sub>N</sub>, E, ρ<sub>EE</sub>, ρ<sub>NN</sub>, ρ<sub>EN</sub>
                 </span>.
-                Generally speaking, even if μ<sub>E</sub> > μ<sub>N</sub>, non-experts can contribute by increasing the sample size, and by potentially decorrelating the assessments (say when ρ<sub>EN</sub> < ρ<sub>EE</sub>, ρ<sub>NN</sub>, ).  
+                Generally speaking, even if 
+                <span style={{ fontFamily: "Georgia, Times New Roman, serif", color: "#0f172a" }}>
+                  {" "}μ<sub>E</sub> > μ<sub>N</sub>
+                  </span>, 
+                non-experts can contribute by increasing the sample size, and by potentially decorrelating the assessments (say when 
+                <span style={{ fontFamily: "Georgia, Times New Roman, serif", color: "#0f172a" }}>
+                  {" "}ρ<sub>EN</sub> < ρ<sub>EE</sub>, ρ<sub>NN</sub>
+                  </span>).  
               </div>
             </div>
 
