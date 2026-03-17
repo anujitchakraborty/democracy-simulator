@@ -631,10 +631,10 @@ export default function App() {
                 Can coin tosses, working as non-experts, improve the wisdom of crowds? To explore this seemingly bizzare possibility, try
                 simulating the case with
                 <span style={{ fontFamily: "Georgia, Times New Roman, serif", color: "#0f172a" }}>
-                  {" "}μ<sub>E</sub> = 0.6, μ<sub>N</sub> = 0.5, ρ<sub>EE</sub> = 0.8, ρ<sub>NN</sub> = 0, ρ<sub>EN</sub> = 0
+                  {" "}μ<sub>E</sub> = 0.6, μ<sub>N</sub> = 0.5, E=7, ρ<sub>EE</sub> = 0.8, ρ<sub>NN</sub> = 0, ρ<sub>EN</sub> = 0
                 </span>.
                 In this case, non-experts behave like independent coin flips, yet
-                aggregating the right number of such signals can still improve the accuracy of the
+                aggregating the right number of such signals can still marginally improve the accuracy of the
                 majority decision, by decorrelating the assessments.
               </div>
             </div>
