@@ -618,7 +618,7 @@ export default function App() {
             >
               <div
                 style={{
-                  fontSize: 15,
+                  fontSize: 18,
                   fontWeight: 600,
                   marginBottom: 8,
                   color: "#0f172a"
@@ -668,7 +668,7 @@ export default function App() {
             {results
               ? results.panels.map((panel, panelIndex) => (
                   <div key={panel.rhoNN} style={sectionStyle()}>
-                    <h2 style={{ marginTop: 0 }}>Gain vs. N (Number of Non-experts), plotted at ρ<sub>NN</sub> = {panel.rhoNN}</h2>
+                    <h1 style={{ marginTop: 0 }}>Gain vs. N (Number of Non-experts), plotted at ρ<sub>NN</sub> = {panel.rhoNN}</h2>
                    
                     
                     <div style={{ width: "100%", height: 360 }}>
