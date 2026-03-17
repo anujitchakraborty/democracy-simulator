@@ -500,7 +500,6 @@ export default function App() {
     setError("");
   }
 
-  const testsPassed = tests.length > 0 && tests.every((t) => t.passed);
 
   return (
     <div style={{ minHeight: "100vh", background: "#f8fafc", padding: 24, fontFamily: "Arial, sans-serif", color: "#0f172a" }}>
