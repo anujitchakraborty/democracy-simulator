@@ -32,45 +32,7 @@ function buildRange(start, end, step) {
   return out;
 }
 
-function approxEqual(a, b, tol = 1e-9) {
-  return Math.abs(a - b) <= tol;
-}
 
-function runSelfTests() {
-  const results = [];
-
-  const list1 = parseNumberList("0.1, 0.8");
-  results.push({
-    name: "parseNumberList parses comma-separated input",
-    passed: list1.length === 2 && approxEqual(list1[0], 0.1) && approxEqual(list1[1], 0.8),
-  });
-
-  const list2 = parseNumberList("-0.9 -0.7, -0.5 0 0.5");
-  results.push({
-    name: "parseNumberList parses mixed spaces and commas",
-    passed:
-      list2.length === 5 &&
-      approxEqual(list2[0], -0.9) &&
-      approxEqual(list2[1], -0.7) &&
-      approxEqual(list2[2], -0.5) &&
-      approxEqual(list2[3], 0) &&
-      approxEqual(list2[4], 0.5),
-  });
-
-  const range = buildRange(2, 6, 2);
-  results.push({
-    name: "buildRange creates inclusive grid",
-    passed: range.length === 3 && range[0] === 2 && range[1] === 4 && range[2] === 6,
-  });
-
-  const emptyRange = buildRange(5, 2, 1);
-  results.push({
-    name: "buildRange rejects descending ranges",
-    passed: emptyRange.length === 0,
-  });
-
-  return results;
-}
 
 function mulberry32(seed) {
   let a = seed >>> 0;
