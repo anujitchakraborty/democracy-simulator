@@ -559,11 +559,11 @@ export default function App() {
 
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 14, marginTop: 14 }}>
               <div>
-                <label style={labelStyle()}>N1 start</label>
+                <label style={labelStyle()}>N1 min</label>
                 <input style={inputStyle()} type="number" step="1" value={N1Start} onChange={(e) => setN1Start(Number(e.target.value))} />
               </div>
               <div>
-                <label style={labelStyle()}>N1 end</label>
+                <label style={labelStyle()}>N1 max</label>
                 <input style={inputStyle()} type="number" step="1" value={N1End} onChange={(e) => setN1End(Number(e.target.value))} />
               </div>
               <div>
@@ -573,12 +573,12 @@ export default function App() {
             </div>
 
             <div style={{ marginTop: 14 }}>
-              <label style={labelStyle()}>List of rho_NN values</label>
+              <label style={labelStyle()}>Within-nonexpert correlation values</label>
               <input style={inputStyle()} value={rhoNNText} onChange={(e) => setRhoNNText(e.target.value)} />
             </div>
 
             <div style={{ marginTop: 14 }}>
-              <label style={labelStyle()}>List of rho_SN values</label>
+              <label style={labelStyle()}>Expert-nonexpert correlation values</label>
               <input style={inputStyle()} value={rhoSNText} onChange={(e) => setRhoSNText(e.target.value)} />
             </div>
 
